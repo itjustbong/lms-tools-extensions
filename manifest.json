@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "LMS Tools",
+  "version": "0.1",
+  "description": "강의, 파일 그리고 pdf를 팝업으로 띄워줍니다",
+  "content_scripts": [
+    {
+      "run_at": "document_end",
+      "js": ["scripts/content.js"],
+      "matches": ["https://canvas.ssu.ac.kr/courses/*/external_tools/2"]
+    },
+    {
+      "js": ["scripts/checkStateOk.js"],
+      "matches": ["https://canvas.ssu.ac.kr/learningx/coursebuilder/course/*"]
+    }
+  ]
+}
