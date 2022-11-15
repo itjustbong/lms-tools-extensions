@@ -3,28 +3,28 @@ const POPUP_OPTIONS =
 
 window.onload = async function () {
   setTimeout(async () => {
-    await mainScript();
+    const lectureInfoUrl = lectureInfoUrlBuilder();
+    const lectureInfo = await fetchWithAuth(lectureInfoUrl);
+    await mainScript(lectureInfo);
     getElements('.xncb-section-header-index-number').forEach(
       async (weekDropButton) => {
         weekDropButton.onclick = async (e) => {
-          await mainScript();
+          // [ERR] wait for week toggle open needed
+          await wait(0.25);
+          await mainScript(lectureInfo);
         };
       }
     );
     getElements('.xncb-section-header-info-wrapper').forEach((weekHeader) => {
-      console.log(weekHeader);
       weekHeader.onclick = (e) => {
         e.preventDefault();
         e.stopPropagation();
-        console.log(e);
       };
     });
   }, 1000);
 };
 
-const mainScript = async () => {
-  const lectureInfoUrl = lectureInfoUrlBuilder();
-  const lectureInfo = await fetchWithAuth(lectureInfoUrl);
+const mainScript = async (lectureInfo) => {
   // toggleAllWeek();
 
   getElements('.xncb-component-main-wrapper').forEach(async (ele) => {
@@ -239,3 +239,5 @@ const getCookie = (cookieName) => {
   }
   return cookieValue;
 };
+
+const wait = (sec) => new Promise((resolve) => setTimeout(resolve, sec * 1000));
