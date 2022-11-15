@@ -3,4 +3,4 @@ setTimeout(() => {
     location.reload();
     console.log('reload');
   }
-}, 5000);
+}, 3000);
