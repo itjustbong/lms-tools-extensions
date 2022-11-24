@@ -5,7 +5,7 @@ import {
   getElements,
   hideElements,
   clickAllElements,
-} from './util/windows';
+} from './util/dom';
 
 window.onload = async function () {
   setTimeout(async () => {

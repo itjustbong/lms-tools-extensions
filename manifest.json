@@ -10,8 +10,11 @@
   "permissions": ["storage"],
   "web_accessible_resources": [
     {
-      "resources": ["./src/*", "./scripts/*"],
-      "matches": ["<all_urls>"]
+      "resources": ["/scripts/*", "/src/*"],
+      "matches": [
+        "http://auth.soongsil.ac.kr/*",
+        "https://auth.soongsil.ac.kr/*"
+      ]
     }
   ],
   "content_scripts": [

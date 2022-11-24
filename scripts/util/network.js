@@ -1,4 +1,4 @@
-import { getCookie } from './windows.js';
+import { getCookie } from './dom.js';
 
 export const fetchWithAuth = async (link) => {
   const res = await fetch(link, {

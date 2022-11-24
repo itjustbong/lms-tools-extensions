@@ -1,4 +1,4 @@
-import { getElements } from './util/windows.js';
+import { getElements } from './util/dom.js';
 
 // 학번 비번 저장 관련
 const saveUserInfo = () => {
@@ -9,6 +9,7 @@ const saveUserInfo = () => {
     soongFiID: id,
     soongFiPW: pw,
   });
+  alert('저장이 완료되었습니다.');
 };
 
 // 학번 비번이 저장되어 있다면,
