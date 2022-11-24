@@ -13,7 +13,8 @@
       "resources": ["/scripts/*", "/src/*"],
       "matches": [
         "http://auth.soongsil.ac.kr/*",
-        "https://auth.soongsil.ac.kr/*"
+        "https://auth.soongsil.ac.kr/*",
+        "https://canvas.ssu.ac.kr/*"
       ]
     }
   ],

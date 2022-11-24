@@ -1,39 +1,39 @@
-import { wait } from './util/common.js';
-import { fetchWithAuth } from './util/network.js';
-import {
-  openPopup,
-  getElements,
-  hideElements,
-  clickAllElements,
-} from './util/dom';
+let commonScript, networkScript, domScript;
 
-window.onload = async function () {
+(async () => {
+  const common = chrome.runtime.getURL('scripts/util/common.js');
+  commonScript = await import(common);
+  const network = chrome.runtime.getURL('scripts/util/network.js');
+  networkScript = await import(network);
+  const dom = chrome.runtime.getURL('scripts/util/dom.js');
+  domScript = await import(dom);
+
   setTimeout(async () => {
     const lectureInfoUrl = lectureInfoUrlBuilder();
-    const lectureInfo = await fetchWithAuth(lectureInfoUrl);
+    const lectureInfo = await networkScript.fetchWithAuth(lectureInfoUrl);
     await mainScript(lectureInfo);
-    getElements('.xncb-section-header-index-number').forEach(
-      async (weekDropButton) => {
+    domScript
+      .getElements('.xncb-section-header-index-number')
+      .forEach(async (weekDropButton) => {
         weekDropButton.onclick = async (e) => {
           // [ERR] wait for week toggle open needed
-          await wait(0.25);
+          await commonScript.wait(0.25);
           await mainScript(lectureInfo);
         };
-      }
-    );
-    getElements('.xncb-section-header-info-wrapper').forEach((weekHeader) => {
-      weekHeader.onclick = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-      };
-    });
+      });
+    domScript
+      .getElements('.xncb-section-header-info-wrapper')
+      .forEach((weekHeader) => {
+        weekHeader.onclick = (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+        };
+      });
   }, 1000);
-};
+})();
 
 const mainScript = async (lectureInfo) => {
-  // toggleAllWeek();
-
-  getElements('.xncb-component-main-wrapper').forEach(async (ele) => {
+  domScript.getElements('.xncb-component-main-wrapper').forEach(async (ele) => {
     if (ele.getElementsByClassName('extension-popupButton').length > 0) return;
     // if (!ele.previousSibling.classList.contains('mp4')) return;
 
@@ -57,7 +57,7 @@ const mainScript = async (lectureInfo) => {
       `팝업으로 열기`,
       videoUrl,
       componentId,
-      openPopup
+      domScript.openPopup
     );
 
     const pdfPopupButton = buttonBuilder(
@@ -99,57 +99,59 @@ const pdfDownOpen = async (e, fileDownUrl, title) => {
   e.stopPropagation();
   e.preventDefault();
   const url = await getPdfUrl(fileDownUrl);
-  openPopup(e, url, title);
+  domScript.openPopup(e, url, title);
 };
 
 const fileDownOpen = async (e, fileDownUrl) => {
   e.stopPropagation();
   e.preventDefault();
   const metaUrl = await getFileUrl(fileDownUrl);
-  const fileInfo = await fetchWithAuth(metaUrl);
+  const fileInfo = await networkScript.fetchWithAuth(metaUrl);
   window.open(fileInfo.result.download_url);
 };
 
 const toggleAllWeek = () => {
-  const listBtns = getElements('.xncb-section-header-index-number');
-  clickAllElements(listBtns);
-  hideElements(listBtns);
+  const listBtns = domScript.getElements('.xncb-section-header-index-number');
+  domScript.clickAllElements(listBtns);
+  domScript.hideElements(listBtns);
 };
 
 const getPdfUrl = async (fileSectorInfoUrl) => {
-  const pdfInfo = await fetchWithAuth(fileSectorInfoUrl);
+  const pdfInfo = await networkScript.fetchWithAuth(fileSectorInfoUrl);
   const url = `https://commons.ssu.ac.kr/contents15/ssu1000001/${pdfInfo.commons_content.content_id}/contents/web_files/original.pdf`;
   return url;
 };
 
 const getFileUrl = async (fileSectorInfoUrl) => {
-  const fileInfo = await fetchWithAuth(fileSectorInfoUrl);
+  const fileInfo = await networkScript.fetchWithAuth(fileSectorInfoUrl);
   const url = `https://canvas.ssu.ac.kr/learningx/api/v1/commons/contents?content_id=${fileInfo.commons_content.content_id}`;
   return url;
 };
 
 const videoUrlBuilder = (sectionId, unitId) => {
-  const courseId = getElements('#custom_canvas_course_id')[0].value;
-  const userId = getElements('#custom_user_id')[0].value;
-  const loginId = getElements('#custom_canvas_user_login_id')[0].value;
-  const nameFull = getElements('#custom_user_name_full')[0].value;
-  const email = getElements('#custom_user_email')[0].value;
+  const courseId = domScript.getElements('#custom_canvas_course_id')[0].value;
+  const userId = domScript.getElements('#custom_user_id')[0].value;
+  const loginId = domScript.getElements('#custom_canvas_user_login_id')[0]
+    .value;
+  const nameFull = domScript.getElements('#custom_user_name_full')[0].value;
+  const email = domScript.getElements('#custom_user_email')[0].value;
 
   const url = `https://canvas.ssu.ac.kr/learningx/coursebuilder/course/${courseId}/learn/${sectionId}/unit/${unitId}/view?user_id=${userId}&user_login=${loginId}&user_name=${nameFull}&user_email=${email}&role=1&is_observer=false&locale=ko&mode=default`;
   return url;
 };
 
 const lectureInfoUrlBuilder = () => {
-  const courseId = getElements('#custom_canvas_course_id')[0].value;
-  const userId = getElements('#custom_user_id')[0].value;
+  const courseId = domScript.getElements('#custom_canvas_course_id')[0].value;
+  const userId = domScript.getElements('#custom_user_id')[0].value;
   const url = `https://canvas.ssu.ac.kr/learningx/api/v1/courses/${courseId}/sections_db?user_id=${userId}&role=1&type=`;
   return url;
 };
 
 const fileSectionUrlBuiler = (sectionId, subsectionId, unitId, componentId) => {
-  const courseId = getElements('#custom_canvas_course_id')[0].value;
-  const userId = getElements('#custom_user_id')[0].value;
-  const loginId = getElements('#custom_canvas_user_login_id')[0].value;
+  const courseId = domScript.getElements('#custom_canvas_course_id')[0].value;
+  const userId = domScript.getElements('#custom_user_id')[0].value;
+  const loginId = domScript.getElements('#custom_canvas_user_login_id')[0]
+    .value;
   const url = `https://canvas.ssu.ac.kr/learningx/api/v1/courses/${courseId}/sections/${sectionId}/subsections/${subsectionId}/units/${unitId}/components/${componentId}?user_id=${userId}&user_login=${loginId}&force_submit=true&mode=default`;
   return url;
 };
