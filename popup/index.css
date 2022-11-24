@@ -1,0 +1,180 @@
+/* css code */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-scroll-behavior: smooth;
+  scroll-behavior: smooth;
+}
+body {
+  background: #7998c9;
+  display: grid;
+  place-items: center;
+  transition: all 1s;
+  width: 320px;
+  height: 370px;
+}
+.container {
+  width: 300px;
+  height: 350px;
+  box-shadow: 0px 2px 4px black;
+  background: white;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  z-index: 3;
+}
+.wrapper {
+  position: relative;
+  width: 300px;
+  height: 350px;
+  overflow: hidden;
+  box-shadow: 3px 2px 3px rgba(0, 0, 0, 0.459);
+  color: rgb(160, 236, 241);
+}
+nav {
+  position: absolute;
+  top: 87%;
+  left: 0;
+  width: 100%;
+  height: 110px;
+  display: flex;
+  justify-content: space-evenly;
+  border-top: 1px solid gainsboro;
+  z-index: 8;
+  background: white;
+  color: rgb(150, 240, 177);
+}
+nav a {
+  padding: 10px;
+  text-decoration: none;
+  color: gray;
+  font-size: 1.25rem;
+}
+
+.content {
+  display: flex;
+  width: 900px;
+  height: 100%;
+}
+.item {
+  width: 300px;
+  color: black;
+  background: white;
+  display: flex;
+  row-gap: 25px;
+
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+}
+
+.link {
+  transition: all 0.3s;
+}
+.tabone {
+  color: rgb(146, 146, 228);
+  transform: scale(1.1);
+}
+.line {
+  width: 70%;
+  height: 8px;
+  margin-top: 5px;
+  background: gainsboro;
+  border-radius: 8px;
+}
+.line2 {
+  width: 50%;
+}
+.item i {
+  font-weight: bolder;
+  font-size: 2rem;
+  color: rgb(12, 12, 12);
+}
+.item1 i {
+  color: rgb(243, 118, 160);
+}
+.item2 i {
+  color: rgb(146, 146, 228);
+}
+.item3 i {
+  color: rgb(245, 233, 67);
+}
+
+/* 인풋 */
+.input-container {
+  height: 50px;
+  position: relative;
+  width: 100%;
+}
+
+.input {
+  background-color: #303245;
+  border-radius: 12px;
+  border: 0;
+  box-sizing: border-box;
+  color: #eee;
+  font-size: 18px;
+  height: 100%;
+  outline: 0;
+  padding: 4px 20px 0;
+  width: 100%;
+}
+
+.cut {
+  background-color: white;
+  border-radius: 10px;
+  height: 20px;
+  left: 20px;
+  position: absolute;
+  top: -20px;
+  transform: translateY(0);
+  transition: transform 200ms;
+  width: 76px;
+}
+
+.cut-short {
+  width: 50px;
+}
+
+.input:focus ~ .cut,
+.input:not(:placeholder-shown) ~ .cut {
+  transform: translateY(8px);
+}
+
+.placeholder {
+  color: #65657b;
+  font-family: sans-serif;
+  left: 20px;
+  line-height: 14px;
+  pointer-events: none;
+  position: absolute;
+  transform-origin: 0 50%;
+  transition: transform 200ms, color 200ms;
+  top: 20px;
+}
+
+.input:focus ~ .placeholder,
+.input:not(:placeholder-shown) ~ .placeholder {
+  transform: translateY(-30px) translateX(10px) scale(0.75);
+}
+
+.input:not(:placeholder-shown) ~ .placeholder {
+  color: #808097;
+}
+
+.input:focus ~ .placeholder {
+  color: rgb(146, 146, 228);
+}
+
+.submit {
+  background-color: rgb(146, 146, 228);
+  border-radius: 12px;
+  border: 0;
+  box-sizing: border-box;
+  color: #eee;
+  cursor: pointer;
+  font-size: 18px;
+  height: 50px;
+  text-align: center;
+  width: 100%;
+}
