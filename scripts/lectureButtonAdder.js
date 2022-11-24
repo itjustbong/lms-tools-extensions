@@ -1,5 +1,11 @@
-const POPUP_OPTIONS =
-  'top=100, left=100, width=800, height=600, status=no, menubar=no, toolbar=no, resizable=yes';
+import {
+  openPopup,
+  getElements,
+  wait,
+  fetchWithAuth,
+  hideElements,
+  clickAllElements,
+} from './util';
 
 window.onload = async function () {
   setTimeout(async () => {
@@ -122,13 +128,6 @@ const getFileUrl = async (fileSectorInfoUrl) => {
   return url;
 };
 
-// 유틸
-const openPopup = (e, videoUrl, lectureName) => {
-  e.stopPropagation();
-  e.preventDefault();
-  window.open(videoUrl, lectureName || 'LMS', POPUP_OPTIONS);
-};
-
 const videoUrlBuilder = (sectionId, unitId) => {
   const courseId = getElements('#custom_canvas_course_id')[0].value;
   const userId = getElements('#custom_user_id')[0].value;
@@ -176,68 +175,3 @@ const findSectionUnitId = async (title, lectureInfo) => {
   });
   return { sectionId, unitId, componentId, subsectionId };
 };
-
-const fetchWithAuth = async (link) => {
-  const res = await fetch(link, {
-    method: 'GET',
-    headers: {
-      Cookie: document.cookie,
-      Authorization: 'Bearer ' + getCookie('xn_api_token'),
-    },
-  });
-  return res.json();
-};
-
-const viewFile = async (url) => {
-  // Change this to use your HTTP client
-  fetch(url, {
-    method: 'GET',
-    headers: {
-      Cookie: document.cookie,
-      Authorization: 'Bearer ' + getCookie('xn_api_token'),
-    },
-  }) // FETCH BLOB FROM IT
-    .then((response) => response.blob())
-    .then((blob) => {
-      // RETRIEVE THE BLOB AND CREATE LOCAL URL
-      var _url = window.URL.createObjectURL(blob);
-      window.open(_url, '_blank').focus(); // window.open + focus
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
-
-const getElements = (query) => {
-  let elements;
-  if (document.querySelectorAll(query).length > 0)
-    elements = document.querySelectorAll(query);
-  else
-    elements = document
-      .querySelector('iframe#tool_content')
-      .contentWindow.document.body.querySelectorAll(query);
-
-  return elements;
-};
-
-const hideElements = (elements) => {
-  elements.forEach((ele) => (ele.style.display = 'none'));
-};
-
-const clickAllElements = (elements) => {
-  elements.forEach((ele) => ele.click());
-};
-
-const getCookie = (cookieName) => {
-  let cookieValue = null;
-  if (document.cookie) {
-    var array = document.cookie.split(escape(cookieName) + '=');
-    if (array.length >= 2) {
-      var arraySub = array[1].split(';');
-      cookieValue = unescape(arraySub[0]);
-    }
-  }
-  return cookieValue;
-};
-
-const wait = (sec) => new Promise((resolve) => setTimeout(resolve, sec * 1000));
