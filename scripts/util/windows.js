@@ -1,7 +1,8 @@
-import { POPUP_OPTIONS } from '../../src/const';
+import { POPUP_OPTIONS } from '../../src/const.js';
 
 export const getElements = (query) => {
   let elements;
+
   if (document.querySelectorAll(query).length > 0)
     elements = document.querySelectorAll(query);
   else

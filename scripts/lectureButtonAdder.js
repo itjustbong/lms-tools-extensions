@@ -1,11 +1,11 @@
+import { wait } from './util/common.js';
+import { fetchWithAuth } from './util/network.js';
 import {
   openPopup,
   getElements,
-  wait,
-  fetchWithAuth,
   hideElements,
   clickAllElements,
-} from './util';
+} from './util/windows';
 
 window.onload = async function () {
   setTimeout(async () => {

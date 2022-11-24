@@ -5,8 +5,15 @@
   "description": "강의, 파일 그리고 pdf를 팝업으로 띄워줍니다",
   "action": {
     "default_title": "LMS Tools",
-    "default_popup": "popup/index.html"
+    "default_popup": "popup.html"
   },
+  "permissions": ["storage"],
+  "web_accessible_resources": [
+    {
+      "resources": ["./src/*", "./scripts/*"],
+      "matches": ["<all_urls>"]
+    }
+  ],
   "content_scripts": [
     {
       "run_at": "document_end",

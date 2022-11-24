@@ -1,6 +1,7 @@
 <head>
   <meta charset="UTF-8" />
-  <link rel="stylesheet" type="text/css" href="./index.css" />
+  <link rel="stylesheet" type="text/css" href="./src/style/popup.css" />
+  <script type="module" src="./scripts/popup.js"></script>
 </head>
 <body>
   <div class="wrapper">
@@ -11,6 +12,7 @@
         <a href="#noti" class="link link3"> 안내 </a>
       </nav>
       <div class="content">
+        <!-- 메인 -->
         <div class="item item1" id="home">
           <i class="fab fa-html5">홈</i>
           <div>기능 켜기 / 끄기</div>
@@ -19,18 +21,21 @@
         <div class="item item2" id="soongfi">
           <i class="fab fa-css3">숭파이</i>
           <div class="input-container ic2">
-            <input id="lastname" class="input" type="text" placeholder=" " />
+            <input id="soongFiID" class="input" type="text" placeholder=" " />
             <div class="cut"></div>
-            <label for="lastname" class="placeholder">학번</label>
+            <label for="soongFiID" class="placeholder">학번</label>
           </div>
 
+          <!-- 숭파이 자동 로그인 -->
           <div class="input-container ic2">
-            <input id="lastname" class="input" type="text" placeholder=" " />
+            <input id="soongFiPW" class="input" type="text" placeholder=" " />
             <div class="cut"></div>
-            <label for="lastname" class="placeholder">비밀번호</label>
+            <label for="soongFiPW" class="placeholder">비밀번호</label>
           </div>
-          <button type="text" class="submit">submit</button>
+          <button type="text" class="submit" id="saveUserInfo">저장하기</button>
         </div>
+
+        <!-- 안내 -->
         <div class="item item3" id="noti">
           <i class="fab fa-js">안내</i>
           <div>지원기능</div>
@@ -44,5 +49,4 @@
       </div>
     </div>
   </div>
-  <script type="text/javascript" src="./index.js"></script>
 </body>
