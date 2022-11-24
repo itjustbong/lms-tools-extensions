@@ -21,15 +21,15 @@
   "content_scripts": [
     {
       "run_at": "document_end",
-      "js": ["scripts/lectureButtonAdder.js"],
+      "js": ["scripts/contetnsScripts/lectureButtonAdder.js"],
       "matches": ["https://canvas.ssu.ac.kr/courses/*/external_tools/2"]
     },
     {
-      "js": ["scripts/refrashIfLoading.js"],
+      "js": ["scripts/contetnsScripts/refrashIfLoading.js"],
       "matches": ["https://canvas.ssu.ac.kr/learningx/coursebuilder/course/*"]
     },
     {
-      "js": ["scripts/soongfiAutoLogin.js"],
+      "js": ["scripts/contetnsScripts/soongfiAutoLogin.js"],
       "run_at": "document_end",
       "matches": [
         "http://auth.soongsil.ac.kr/*",
