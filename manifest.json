@@ -29,6 +29,11 @@
       "matches": ["https://canvas.ssu.ac.kr/learningx/coursebuilder/course/*"]
     },
     {
+      "js": ["scripts/contetnsScripts/lectureUnitPage.js"],
+      "run_at": "document_end",
+      "matches": ["https://canvas.ssu.ac.kr/learningx/coursebuilder/course/*"]
+    },
+    {
       "js": ["scripts/contetnsScripts/soongfiAutoLogin.js"],
       "run_at": "document_end",
       "matches": [

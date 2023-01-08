@@ -53,21 +53,21 @@ const mainScript = async (lectureInfo) => {
     popupButtonBox.style.flexDirection = 'row';
     popupButtonBox.style.gap = '0.5rem';
 
-    const lecturePopupButton = buttonBuilder(
+    const lecturePopupButton = domScript.buttonBuilder(
       `팝업으로 열기`,
       videoUrl,
       componentId,
       domScript.openPopup
     );
 
-    const pdfPopupButton = buttonBuilder(
+    const pdfPopupButton = domScript.buttonBuilder(
       `pdf 열기`,
       fileSectionUrl,
       componentId,
       pdfDownOpen
     );
 
-    const fileDownloadLinkButton = buttonBuilder(
+    const fileDownloadLinkButton = domScript.buttonBuilder(
       `파일 다운`,
       fileSectionUrl,
       '파일 다운로드',
@@ -79,20 +79,6 @@ const mainScript = async (lectureInfo) => {
     popupButtonBox.appendChild(fileDownloadLinkButton);
     ele.appendChild(popupButtonBox);
   });
-};
-
-const buttonBuilder = (title, videoUrl, tabName, onClickFunc) => {
-  const popupElement = document.createElement('div');
-  popupElement.className = 'extension-popupButton';
-  popupElement.innerHTML = title;
-  popupElement.style.backgroundColor = '#14AAF5';
-  popupElement.style.borderRadius = '1rem';
-  popupElement.style.width = '10rem';
-  popupElement.style.color = 'white';
-  popupElement.style.textAlign = 'center';
-  popupElement.onclick = (e) => onClickFunc(e, videoUrl, tabName);
-
-  return popupElement;
 };
 
 const pdfDownOpen = async (e, fileDownUrl, title) => {
